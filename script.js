@@ -1,3 +1,56 @@
+let predictions = "";
+
+const button = document.querySelector('.forecast-btn')
+const forecastItem = document.querySelector('#forecast-item')
+const container = document.querySelector('.forecasts')
+const basic = document.querySelector('h1')
+const probability = document.querySelector('p')
+
+
+button.addEventListener('click', function() {
+
+    const card = makeCardByTemplate(predictions, basic);
+
+    if (basic.textContent != "") {
+        container.prepend(card);
+    }
+
+    probability.textContent = generateRandomValue(0, 100) + "%";
+
+    let number = generateRandomValue(0, 5);
+
+    if (number === 1) {
+        predictions = "Ты отправишься в путешествие";
+    } else if (number === 2) {
+        predictions = "Ты станешь богат";
+    } else if (number === 3) {
+        predictions = "Завтра будет лучше, чем вчера";
+    } else if (number === 4) {
+        predictions = "Тебя ждет успех";
+    }
+
+    basic.textContent = predictions;
+
+
+    function generateRandomValue(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+
+    }
+
+    function makeCardByTemplate(predictions, basic) {
+        const myCard = forecastItem.content.cloneNode(true);
+
+        myCard.querySelector('h3').textContent = predictions.textContent;
+        myCard.querySelector('p').textContent = basic.textContent;
+
+        return myCard;
+
+    }
+
+})
+
+
+
 /* Генерация предсказания должна происходить при клике на кнопку «предсказать судьбу» */
 
 /* Заранее заготовь 3-5 предсказаний и в зависимости от того, как лягут карты судьбы (или что скажет Math.random) показывай их пользователю */
